@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GenStack.h"
-#include "FileIO.h"
+// #include "FileIO.h"
+#include "SyntaxChecker.h"
 
 int main(int argc, char** argv){
 

@@ -14,7 +14,11 @@ SyntaxChecker::SyntaxChecker(GenStack<char>* stack, string fileName){
   // m_lineTracker = lineTracker;
 }
 
-bool SyntaxChecker::DelimeterCheck(){
+SyntaxChecker::~SyntaxChecker(){
+  delete m_stack;
+}
+
+void SyntaxChecker::DelimeterCheck(){
   ifstream inFS;
   ofstream outFS;
   string currLine = "";
@@ -37,16 +41,57 @@ bool SyntaxChecker::DelimeterCheck(){
       if(currLine[i] == ')' || currLine[i] == '}' || currLine[i] == ']'){
         if(stack->isEmpty()){
           cout << "Error: line " >> lineCount << endl;
-          break;
+          exit(1);
         }
       }
       if(currLine[i] == ')'){
         if(stack->peek() != '('){
-          cout << "Error: line " << lineCount << endl;
-          break; // should it be an exit instead
+          if(stack->peek() == '{')
+            cout << "Error: expected '(' found '{' on line " << lineCount << endl;
+          if(stack->peek() == '[')
+            cout << "Error: expected '(' found '[' on line " << lineCount << endl;
+          exit(1);
+        }
+        stack->pop();
+      }
+      if(currLine[i] == '}'){
+        if(stack->peek() != '{'){
+          if(stack->peek() == '(')
+            cout << "Error: expected '{' found '(' on line " << lineCount << endl;
+          if(stack->peek() == '[')
+            cout << "Error: expected '{' found '[' on line " << lineCount << endl;
+          exit(1);
+        }
+        stack->pop();
+      }
+      if(currLine[i] == ']'){
+        if(stack->peek() != '['){
+          if(stack->peek() == '{')
+            cout << "Error: expected '[' found '{' on line " << lineCount << endl;
+          if(stack->peek() == '(')
+            cout << "Error: expected '[' found '(' on line " << lineCount << endl;
+          exit(1);
         }
         stack->pop();
       }
     }
   }
+  if(!stack->isEmpty()){
+    switch(stack->peek()){
+      case '(':
+        cout << "Error: Reached end of file missing ')'" << endl;
+        break;
+        exit(1);
+      case '{':
+        cout << "Error: Reached end of file missing '}'" << endl;
+        break;
+        exit(1);
+      case '[':
+        cout << "Error: Reached end of file missing ']'" << endl;
+        break;
+        exit(1);
+    }
+  }
+
+  inFS.close();
 }

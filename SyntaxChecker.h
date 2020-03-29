@@ -7,9 +7,10 @@ class SyntaxChecker{
 public:
   SyntaxChecker();
   SyntaxChecker(GenStack<char>* stack, string fileName);
+  ~SyntaxChecker();
 
-  bool DelimeterCheck();
-  void PrintResult();
+  void DelimeterCheck();
+  // void PrintResult();
 private:
   GenStack<char>* m_stack;
   string m_fileName;
