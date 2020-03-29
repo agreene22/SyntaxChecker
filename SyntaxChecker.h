@@ -1,20 +1,19 @@
 #include <iostream>
 #include <fstream>
+#include "GenStack.h"
 
 using namespace std;
 
 class SyntaxChecker{
 public:
   SyntaxChecker();
+  SyntaxChecker(string fileName);
   SyntaxChecker(GenStack<char>* stack, string fileName);
   ~SyntaxChecker();
 
   void DelimeterCheck();
-  // void PrintResult();
+
 private:
   GenStack<char>* m_stack;
   string m_fileName;
-  // int m_size;
-  // string m_delimeters;
-  // int lineTracker[];
 };

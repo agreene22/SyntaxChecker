@@ -48,10 +48,13 @@ GenStack<T>::~GenStack(){
 template <class T>
 void GenStack<T>::push(T data){
   //check if full before attempting to push/insert
-  if(top == mSize){
+  if(isFull()){
     mSize++;
-    myArray = new T[mSize];
-    // FILL THE ARRAY SO IT IS STILL THE SAME AS BEFORE THOUGH
+    T *newArray = new T[mSize];
+    for(int i = 0; i < (mSize-1); ++i){
+      newArray[i] = myArray[i];
+    }
+    myArray = newArray;
   }
   myArray[++top] = data; //pre-increment so it goes from -1 to 0
 }

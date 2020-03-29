@@ -1,18 +1,27 @@
 #include <iostream>
-#include "GenStack.h"
-// #include "FileIO.h"
 #include "SyntaxChecker.h"
 
 int main(int argc, char** argv){
+  string fileName = "";
+  char choice = 'y';
 
   if(argc > 1){
-    string fileName = argv[1]; // Using command line to read in file
+    fileName = argv[1]; // Using command line to read in file
 
-  //   FileIO *f = new FileIO(fileName);
-  //   f->openFile();
-  //   f->processFile();
+    while(choice == 'y'){
+      SyntaxChecker* sc = new SyntaxChecker(fileName); // does this need to be on the heap
+      sc->DelimeterCheck();
+
+      cout << "Would you like to process another file? (y/n)" << endl;
+      cin >> choice;
+      choice = tolower(choice);
+
+      delete sc;
+    }
+
+  }else{
+    cout << "INVALID USAGE: please enter name of a text file" << endl;
+    cout << "USAGE: ./a.out [file name]" << endl;
   }
-  //
-  // delete f;
   return 0;
 }

@@ -5,4 +5,4 @@ Anna Greene
 agreene@chapman.edu
 Assignment 3 - Syntax Checker
 
-References: https://www.codeproject.com/Articles/48575/How-to-Define-a-Template-Class-in-a-h-File-and-Imp
+References: https://www.codeproject.com/Articles/48575/How-to-Define-a-Template-Class-in-a-h-File-and-Imp, talked to Michael(SI), Data Structures and Algorithms in C++ textbook
