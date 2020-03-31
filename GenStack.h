@@ -2,7 +2,7 @@
 using namespace std;
 
 template <class T>
-class GenStack{
+class GenStack : public StackException{
 public:
   GenStack(); // default constructor
   GenStack(int maxSize); // overloaded constructor
