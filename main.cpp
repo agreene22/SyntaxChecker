@@ -16,6 +16,11 @@ int main(int argc, char** argv){
       cin >> choice;
       choice = tolower(choice);
 
+      if(choice == 'y'){
+        cout << "Enter new file name: " << endl;
+        cin >> fileName;
+      }
+    
       delete sc;
     }
 

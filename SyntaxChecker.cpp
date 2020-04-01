@@ -20,7 +20,7 @@ SyntaxChecker::~SyntaxChecker(){
 
 void SyntaxChecker::DelimeterCheck(){
   ifstream inFS;
-  ofstream outFS;
+  // ofstream outFS;
   string currLine = "";
   int lineCount = 0;
 
@@ -56,7 +56,12 @@ void SyntaxChecker::DelimeterCheck(){
           inFS.close();
           exit(1);
         }
-        m_stack->pop();
+        try{
+          m_stack->pop();
+        }catch (EmptyStackException e){
+          cout << e.getMessage() << endl;
+        }
+
       }
       if(currLine[i] == '}'){
         if(m_stack->peek() != '{'){
@@ -67,7 +72,11 @@ void SyntaxChecker::DelimeterCheck(){
           inFS.close();
           exit(1);
         }
-        m_stack->pop();
+        try{
+          m_stack->pop();
+        }catch (EmptyStackException e){
+          cout << e.getMessage() << endl;
+        }
       }
       if(currLine[i] == ']'){
         if(m_stack->peek() != '['){
@@ -78,7 +87,11 @@ void SyntaxChecker::DelimeterCheck(){
 
           exit(1);
         }
-        m_stack->pop();
+        try{
+          m_stack->pop();
+        }catch (EmptyStackException e){
+          cout << e.getMessage() << endl;
+        }
       }
     }
   }

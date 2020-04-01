@@ -1,8 +1,9 @@
 #include <iostream>
+#include "EmptyStackException.h"
 using namespace std;
 
 template <class T>
-class GenStack : public StackException{
+class GenStack{
 public:
   GenStack(); // default constructor
   GenStack(int maxSize); // overloaded constructor
@@ -10,7 +11,7 @@ public:
 
   //core functions
   void push(T data); // insert an item
-  T pop(); //remove
+  T pop() throw (EmptyStackException); //remove
 
   //aux/helper functions
   T peek();
@@ -27,8 +28,8 @@ private:
 //default constructor
 template <class T>
 GenStack<T>::GenStack(){
-  myArray = new T[128];
-  mSize = 128;
+  myArray = new T[1000];
+  mSize = 1000;
   top = -1;
 }
 //overloaded constructor
@@ -42,7 +43,7 @@ GenStack<T>::GenStack(int maxSize){
 template <class T>
 GenStack<T>::~GenStack(){
   delete myArray;
-  cout << "Array deleted" << endl;
+  // cout << "Array deleted" << endl;
 }
 
 template <class T>
@@ -60,10 +61,10 @@ void GenStack<T>::push(T data){
 }
 
 template <class T>
-T GenStack<T>::pop(){
+T GenStack<T>::pop() throw (EmptyStackException){
   //check if empty before attempting to remove
-  if(top == 0){
-    // THROW EXCEPTION BECAUSE ITS EMPTY
+  if(top == -1){
+    throw EmptyStackException("EmptyStackException: Stack is empty, nothing to pop");
   }
   return myArray[top--]; //decrement after returning the value
 }
